@@ -1,109 +1,90 @@
-﻿using System.Net.Http;
-using System.Net.Http.Headers;
+﻿using System.Net.Http.Headers;
 using System.Text.Json;
 using System.Text;
 using System.Text.Json.Nodes;
 
 namespace spworlds;
 
-public class SpWorlds
+public class SPWorlds
 {
-    private readonly HttpClient _client;
-    JsonSerializerOptions options = new JsonSerializerOptions
+    private readonly HttpClient client;
+
+    public SPWorlds(string id, string token)
     {
-        PropertyNameCaseInsensitive = true
-    };
+        client = new HttpClient();
+        var BearerToken = $"{id}:{token}";
+        string Base64BearerToken = Convert.ToBase64String(Encoding.UTF8.GetBytes(BearerToken));
 
-
-    public SpWorlds(string id, string token)
-    {
-        var StringToken = $"{id}:{token}";
-        byte[] bytes = System.Text.Encoding.UTF8.GetBytes(StringToken);
-        var Base64Token = Convert.ToBase64String(bytes);
-
-        _client = new HttpClient();
-        _client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", Base64Token);
+        client.BaseAddress = new Uri("https://spworlds.ru/api/public/");
+        client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", Base64BearerToken);
     }
 
-    private string SendRequest<T>(string path, T body, Boolean getResult)
+    private async Task<string> SendRequest(string endpoint, Boolean getResult = true, Dictionary<string, object>? body = null)
     {
         string respond;
-        string method = (body == null) ? "GET" : "POST"; 
-        string jsonBody = null;
+        string jsonBody;
         
-        var endpoint = new Uri($"https://spworlds.ru/api/public/{path}");
-        if(method == "GET")
+        if(body == null)
         {
-            return respond = _client.GetAsync(endpoint).Result.Content.ReadAsStringAsync().Result;
+            return respond = client.GetAsync(endpoint).Result.Content.ReadAsStringAsync().Result;
         }
         else 
         {
-            jsonBody = JsonSerializer.Serialize<T>(body);
+            jsonBody = JsonSerializer.Serialize(body);
             var payload = new StringContent(jsonBody, Encoding.UTF8, "application/json");
+
             if(getResult)
-                return respond = _client.PostAsync(endpoint, payload).Result.Content.ReadAsStringAsync().Result;
+                return respond = client.PostAsync(endpoint, payload).Result.Content.ReadAsStringAsync().Result;
             else
-                _client.PostAsync(endpoint, payload);
+                await client.PostAsync(endpoint, payload);
         }
 
-        return jsonBody;
+        return null;
     }
 
-    public int GetBalance() 
+    public async Task<int> GetBalance() 
     {
-        string respond = SendRequest<object>("card", null, true);
+        string respond = await SendRequest("card");
 
         var card = JsonObject.Parse(respond);
         var balance = card["balance"];
+
         return (int)balance;
     }
 
-    public void CreatTransition(string reciverCardId, int amount, string comment)
+    public async Task CreatTransaction(string receiver, int amount, string comment)
     {
-        TransitionInfo transitionInfo = new TransitionInfo();
-            transitionInfo.amount = amount;
-            transitionInfo.comment = comment;
-            transitionInfo.receiver = reciverCardId;
+        var transitionInfo = new Dictionary<string, object>
+        {
+            { "receiver", receiver },
+            { "amount", amount },
+            { "comment", comment }
+        };
 
-        SendRequest("transactions", transitionInfo, false);
+        await SendRequest(endpoint: "transactions", body: transitionInfo);
     }
 
-    public string GetUser(string discordId)
+    public async Task<string> GetUser(string discordId)
     {
-        var user = JsonObject.Parse(SendRequest<object>($"users/{discordId}", null, true));
+        var user = JsonObject.Parse(await SendRequest($"users/{discordId}"));
         var userName = user["username"];
+
         return (string)userName;
     }
 
-    public string InitPayment(int amount, string redirectUrl, string webhookUrl, string data)
+    public async Task<string> InitPayment(int amount, string redirectUrl, string webhookUrl, string data)
     {
-        PaymentInfo paymentInfo = new PaymentInfo();
-            paymentInfo.amount = amount;
-            paymentInfo.redirectUrl = redirectUrl;
-            paymentInfo.webhookUrl = webhookUrl;
-            paymentInfo.data = data;
+        var paymentInfo = new Dictionary<string, object>
+        {
+            { "amount", amount },
+            { "redirectUrl", redirectUrl },
+            { "webhookUrl", webhookUrl },
+            { "data", data }
+        };
 
-        var jsonBody = JsonSerializer.Serialize(paymentInfo);
-
-        Console.WriteLine(jsonBody);
-
-        var payment = JsonObject.Parse(SendRequest($"payment", paymentInfo, true));
+        var payment = JsonObject.Parse(await SendRequest(endpoint: $"payment",body: paymentInfo));
         var url = payment["url"];
-        return (string) url;
-    }
 
-    class PaymentInfo
-    {
-        public int amount { get; set; }
-        public string redirectUrl { get; set; }
-        public string webhookUrl { get; set; }
-        public string data { get; set; }
-    }
-
-    class TransitionInfo
-    {
-        public string receiver { get; set; }
-        public int amount { get; set; }
-        public string comment { get; set; }
+        return (string)url;
     }
 }
