@@ -67,8 +67,11 @@ const url = await sp.InitPayment(
 ```
 ИЛИ
 ```cs
-PaymentData paymentData = JsonNode.Parse(Request.GetBody());
-const url = await sp.InitPayment(paymentData);
+public async Task<IActionResult> GetCreatePaymentFunction([FromBody] PaymentData paymentData)
+{
+  const url = await sp.InitPayment(paymentData);
+  // Ваша логика
+}
 ```
 
 ### Перевод АРов на другую карту
@@ -92,7 +95,7 @@ int balance = await sp.GetCardBalance();
 ```cs
 User user = await sp.GetUser("111111111111111111");
 
-if (user.GetName() == "Mih4n") 
+if (user.Name == "Mih4n") 
 {
   // ваша логика дааа
 }
