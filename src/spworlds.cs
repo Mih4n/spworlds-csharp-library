@@ -23,27 +23,14 @@ public class SPWorlds
         client.BaseAddress = new Uri("https://spworlds.ru/api/public/");
         client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", Base64BearerToken);
     }
-    
 
-    // Полностью бесполезная функция, вебхук, возвращающийся от сайта по факту невозможно валидировать.
     private async Task<bool> ValidateWebHook(string webHook, string bodyHash)
     {
-        // Если я правильно все понял, то вот
-        // Конвертим из string в bytes body_hash
         byte[] body = Encoding.UTF8.GetBytes(bodyHash);
-        // потом конвертим вебхук
         byte[] webhook = Encoding.UTF8.GetBytes(webHook);
-        // создаем объект с токеном(тоже encoded в bytes) для сопостовления
         var key = new HMACSHA256(Encoding.UTF8.GetBytes(token));
-        // Переводим в Base64
         string webhook64 = Convert.ToBase64String(key.ComputeHash(webhook));
         return webhook64.Equals(body);
-        /**
-         * Тот же код, но на Python:
-            hmacData = hmac.new(token.encode('utf - 8'), webhook.encode('utf - 8'), sha256).digest()
-            base64Data = b64encode(hmacData)
-            return hmac.compare_digest(base64Data, bodyHash.encode('utf-8'))
-        **/
     }
     
     private async Task<string> SendRequest(string endpoint, Boolean getResult = true, Dictionary<string, object>? body = null)
@@ -93,9 +80,8 @@ public class SPWorlds
 
     public async Task<User> GetUser(string discordId)
     {
-        var userResponse = JsonObject.Parse(await SendRequest($"users/{discordId}"));
-        var userName = userResponse["username"];
-        User user = new() { Name = userName}
+        string userName = (string)JsonObject.Parse(await SendRequest($"users/{discordId}"))["username"];
+        User user = new(userName);
         return (User)user;
     }
 
