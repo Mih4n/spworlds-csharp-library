@@ -10,15 +10,15 @@ public class User
 
     private HttpClient client = new();
 
-    public bool IsPlayer() => this.Name != null ? true : false;
+    public bool IsPlayer() => Name != null ? true : false;
 
-    public User()
+    public User(string name)
     {
-      Uuid = JsonNode.Parse(await client.GetStringAsync($"https://api.mojang.com/users/profiles/minecraft/{Name}"))["id"];
-      profile = JsonNode.Parse(await client.GetStringAsync($"https://sessionserver.mojang.com/session/minecraft/profile/{Uuid}"));
+      Uuid = JsonNode.Parse(client.GetStringAsync($"https://api.mojang.com/users/profiles/minecraft/{name}"))["id"];
+      profile = JsonNode.Parse(client.GetStringAsync($"https://sessionserver.mojang.com/session/minecraft/profile/{Uuid}"));
     }
     
-    public async Task<string> GetSkinPart(SkinPart skinPart, string size = "64")
+    public string GetSkinPart(SkinPart skinPart, string size = "64")
     {
         return (string)$"https://visage.surgeplay.com/{skinPart}/{size}/{this.profile["profileId"]}"
     }
