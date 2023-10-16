@@ -67,8 +67,11 @@ const url = await sp.InitPayment(
 ```
 ИЛИ
 ```cs
-PaymentData paymentData = JsonNode.Parse(Request.GetBody());
-const url = await sp.InitPayment(paymentData);
+public async Task<IActionResult> GetCreatePaymentFunction([FromBody] PaymentData paymentData)
+{
+  const url = await sp.InitPayment(paymentData);
+  // Ваша логика
+}
 ```
 
 ### Перевод АРов на другую карту
