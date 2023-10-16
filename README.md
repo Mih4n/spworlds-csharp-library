@@ -65,6 +65,11 @@ const url = await sp.InitPayment(
   "SomeString"
 );
 ```
+ИЛИ
+```cs
+PaymentData paymentData = JsonNode.Parse(Request.GetBody());
+const url = await sp.InitPayment(paymentData);
+```
 
 ### Перевод АРов на другую карту
 
@@ -85,18 +90,26 @@ int balance = await sp.GetCardBalance();
 Метод принимает ID игрока в Discord и возвращает его ник, если у него есть вход на сервер.
 
 ```cs
-string username = await sp.GetUser("111111111111111111");
+User user = await sp.GetUser("111111111111111111");
 
-if (!username) 
+if (user.GetName() == "Mih4n") 
 {
   // ваша логика дааа
 }
 ```
-
-### Подтверждение вебхука
+### Получение скина(части скина) игрока
+Метод принимает один из элементов енам-класса SkinPart и разрешение скина(советуется использовать 64, 128 и т.д., но если вам требуется использовать специфичные значения, например на сайте, указывайте как хотите)
+Метод является сабметодом класса User, так что выглядит это так:
 
 ```cs
-// увы пока нет) 
+User user = await sp.GetUser("111111111111111111");
+const faceUrl = user.GetSkinPart(SkinPart.face, "64");
+```
+
+### Подтверждение вебхука
+Метод рабочий, но то, что присылается от сайта вместе с вебхуком от оплаты невозможно дешифровать, все же, если очень надо, то вот: 
+```cs
+bool IsWebHook = await sp.ValidateWebHook(WebHookText, X_Body_Hash); 
 ```
 
 ## Contributing
