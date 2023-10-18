@@ -81,7 +81,7 @@ public class SPWorlds
     public async Task<User> GetUser(string discordId)
     {
         string userName = (string)JsonObject.Parse(await SendRequest($"users/{discordId}"))["username"];
-        User user = new(userName);
+        User user = await User.CreateUser(userName);
         return (User)user;
     }
 
