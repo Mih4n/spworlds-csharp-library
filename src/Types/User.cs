@@ -4,22 +4,34 @@ namespace spworlds.Types;
 
 public class User
 {
-    public readonly string Name 
-    public readonly string Uuid
-    public readonly JsonNode profile
-
-    private HttpClient client = new();
+    public string Name { get; }
+    public string Uuid { get; }
+    public JsonNode profile { get; }
 
     public bool IsPlayer() => Name != null ? true : false;
 
-    public User(string name)
+    public User(string name, string uuid, JsonNode profile)
     {
-      Uuid = JsonNode.Parse(client.GetStringAsync($"https://api.mojang.com/users/profiles/minecraft/{name}"))["id"];
-      profile = JsonNode.Parse(client.GetStringAsync($"https://sessionserver.mojang.com/session/minecraft/profile/{Uuid}"));
+      Name = name;
+      Uuid = uuid;
+      this.profile = profile;
     }
     
+    public static async Task<User> CreateUser(string name)
+    {
+      string uuid;
+      JsonNode profile;
+      using(HttpClient client = new())
+      {
+        uuid = (string)JsonNode.Parse(await client.GetStringAsync($"https://api.mojang.com/users/profiles/minecraft/{name}"))["id"];
+        profile = JsonNode.Parse(await client.GetStringAsync($"https://sessionserver.mojang.com/session/minecraft/profile/{uuid}"));
+      }
+      User user = new(name, uuid, profile);
+      return user;
+    }
+
     public string GetSkinPart(SkinPart skinPart, string size = "64")
     {
-        return (string)$"https://visage.surgeplay.com/{skinPart}/{size}/{this.profile["profileId"]}"
+        return (string)$"https://visage.surgeplay.com/{skinPart}/{size}/{this.profile["profileId"]}";
     }
 }

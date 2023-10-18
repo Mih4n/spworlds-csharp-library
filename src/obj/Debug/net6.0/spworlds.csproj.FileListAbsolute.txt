@@ -1,0 +1,4 @@
+C:\Users\losev\OneDrive\Рабочий стол\spworlds\spworlds-csharp-library\src\obj\Debug\net6.0\spworlds.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\losev\OneDrive\Рабочий стол\spworlds\spworlds-csharp-library\src\obj\Debug\net6.0\spworlds.AssemblyInfoInputs.cache
+C:\Users\losev\OneDrive\Рабочий стол\spworlds\spworlds-csharp-library\src\obj\Debug\net6.0\spworlds.AssemblyInfo.cs
+C:\Users\losev\OneDrive\Рабочий стол\spworlds\spworlds-csharp-library\src\obj\Debug\net6.0\spworlds.csproj.CoreCompileInputs.cache
