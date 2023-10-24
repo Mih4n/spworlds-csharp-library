@@ -9,22 +9,20 @@ public class User
 
     public bool IsPlayer() => Name != null ? true : false;
 
-    public User(string name, string uuid, JsonNode profile)
+    public User(string name, string uuid)
     {
       Name = name;
       Uuid = uuid;
-      this.profile = profile;
     }
     
     public static async Task<User> CreateUser(string name)
     {
       string uuid;
-      JsonNode profile;
       using(HttpClient client = new())
       {
         uuid = (string)JsonNode.Parse(await client.GetStringAsync($"https://api.mojang.com/users/profiles/minecraft/{name}"))["id"];
       }
-      User user = new(name, uuid, profile);
+      User user = new(name, uuid);
       return user;
     }
 
