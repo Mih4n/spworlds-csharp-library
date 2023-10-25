@@ -1,0 +1,20 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
+  <metadata>
+    <id>spworlds</id>
+    <version>1.0.4</version>
+    <authors>Mih4n</authors>
+    <license type="expression">MIT</license>
+    <licenseUrl>https://licenses.nuget.org/MIT</licenseUrl>
+    <readme>README.md</readme>
+    <description>данная библиотека предназначена для работы с сайтом spworlds. Ознакомиться с документацией можно в гитхабе проекта</description>
+    <repository url="https://github.com/Mih4n/spworlds" />
+    <dependencies>
+      <group targetFramework="net6.0" />
+    </dependencies>
+  </metadata>
+  <files>
+    <file src="C:\Users\losev\OneDrive\Рабочий стол\spworlds\spworlds-csharp-library\src\bin\Debug\net6.0\spworlds.dll" target="lib\net6.0\spworlds.dll" />
+    <file src="C:\Users\losev\OneDrive\Рабочий стол\spworlds\spworlds-csharp-library\src\README.md" target="\README.md" />
+  </files>
+</package>

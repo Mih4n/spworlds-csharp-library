@@ -7,7 +7,7 @@
     <PackageId>spworlds</PackageId>
     <Description>данная библиотека предназначена для работы с сайтом spworlds. Ознакомиться с документацией можно в гитхабе проекта</Description>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
-    <Version>1.0.1</Version>
+    <Version>1.0.4</Version>
     <Authors>Mih4n</Authors>
     <Company>Mih4n</Company>
     <RepositoryUrl>https://github.com/Mih4n/spworlds</RepositoryUrl>
