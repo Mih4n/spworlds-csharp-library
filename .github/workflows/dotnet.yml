@@ -21,7 +21,7 @@ jobs:
       with:
         dotnet-version: 6.0.x
     - name: Restore dependencies
-      run: dotnet restore
+      run: dotnet restore -f spworlds-csharp-library
     - name: Build
       run: dotnet build --configuration Release --no-restore -f spworlds-csharp-library
     - name: Test
