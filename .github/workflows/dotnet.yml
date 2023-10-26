@@ -25,7 +25,7 @@ jobs:
     - name: Build
       run: dotnet build spworlds-csharp-library.sln --configuration Release --no-restore 
     - name: Test
-      run: dotnet test --no-build --verbosity normal
+      run: dotnet test spworlds-csharp-library.sln --no-build --verbosity normal
     - name: Publish
       uses: brandedoutcast/publish-nuget@v2.5.5
       with: 
