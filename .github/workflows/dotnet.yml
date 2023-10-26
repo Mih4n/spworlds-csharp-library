@@ -21,9 +21,9 @@ jobs:
       with:
         dotnet-version: 6.0.x
     - name: Restore dependencies
-      run: dotnet restore -f spworlds-csharp-library
+      run: dotnet restore -f spworlds-csharp-library.sln
     - name: Build
-      run: dotnet build --configuration Release --no-restore -f spworlds-csharp-library
+      run: dotnet build --configuration Release --no-restore -f spworlds-csharp-library.sln
     - name: Test
       run: dotnet test --no-build --verbosity normal
     - name: Publish
