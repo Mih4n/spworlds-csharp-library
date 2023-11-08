@@ -20,11 +20,11 @@ dotnet add package spworlds
 ...
 
 // в теле создаете новый обект типа spworlds в 
-// констрактор вы ОБЯЗАННЫ передать передать параметры указанные ниже. Тип данных - стринг
+// конструктор вы ОБЯЗАНЫ передать параметры указанные ниже. Тип данных - string
 // SPWorlds sp = new SPworlds("[ваш айди]", "[ваш токен]");
 
 //так же я советую вам использовать dependancy injection и добавить в него данный обьект как сингл тон т.к он не
-//требуется более чем в одном экземпляре и так-же вам не прийдется каждый раз прописывать строки указанные выше
+//требуется более чем в одном экземпляре и так же вам не придется каждый раз прописывать строки указанные выше
 
 //пример:
 using spworlds;
@@ -32,7 +32,7 @@ using spworlds;
 SPWorlds sp = new SPworlds("[ваш айди]","[ваш токен]");
 
 IServiceProvider = new IServiceColection()
-  .AddSomething() // какойто добавляемый микросервис может быть что угодно
+  .AddSomething() // какой-то добавляемый микросервис, может быть что угодно
   .AddSingletone(sp)
   .Build();
   
@@ -95,7 +95,7 @@ int balance = await sp.GetCardBalance();
 ```cs
 User user = await sp.GetUser("111111111111111111");
 
-if (user.Name == "Mih4n") 
+if (user.IsPlayer) 
 {
   // ваша логика дааа
 }
@@ -106,7 +106,7 @@ if (user.Name == "Mih4n")
 
 ```cs
 User user = await sp.GetUser("111111111111111111");
-const faceUrl = user.GetSkinPart(SkinPart.face, "64");
+const faceUrl = user.GetSkinPart(SkinPart.face); // по дефолту будет размер 64х64, можно указать и больше
 ```
 
 ### Подтверждение вебхука
