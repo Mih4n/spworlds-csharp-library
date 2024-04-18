@@ -1,8 +1,10 @@
 {
   "version": 2,
-  "dgSpecHash": "p7cKQ/JzbW/pFxNjOXo5Xhfj5ODn4c+I/3V85sntBWgUuc5uosay2iPDLl5YmDVFkvR7Suoevt+A+2w9fpQxjw==",
+  "dgSpecHash": "wn8UpI/92drj7Y9CQl+s7VBYfOMeRffRtWpQCB7W3D+sZ2Noiue7K9viVJxtJpvymvDsYPRnQ4JHorfg+z+nsQ==",
   "success": true,
-  "projectFilePath": "C:\\Users\\losev\\OneDrive\\Рабочий стол\\spworlds\\spworlds-csharp-library\\spworlds.csproj",
-  "expectedPackageFiles": [],
+  "projectFilePath": "C:\\Users\\yawaflua\\Source\\Repos\\spworlds-csharp-library\\spworlds.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\yawaflua\\.nuget\\packages\\newtonsoft.json\\13.0.3\\newtonsoft.json.13.0.3.nupkg.sha512"
+  ],
   "logs": []
 }
