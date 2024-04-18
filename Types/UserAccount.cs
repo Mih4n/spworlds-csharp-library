@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace spworlds.Types
 {
     // Root myDeserializedClass = JsonConvert.DeserializeObject<Root>(myJsonResponse);
-    public class UserCard
+    public class MyCard
     {
         public string id { get; set; }
         public string name { get; set; }
