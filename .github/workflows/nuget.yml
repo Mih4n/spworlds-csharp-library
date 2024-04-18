@@ -1,0 +1,28 @@
+name: NuGet - Release
+
+on:
+ release:
+    types: [published]
+
+jobs:
+  publish-nuget:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: Setup .NET Core
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: '8.x.x'
+    - name: Set output
+      id: vars
+      run: echo "tag=${GITHUB_REF#refs/*/}" >> $GITHUB_OUTPUT
+    - name: Publish to NuGet
+      uses: kelson-dev/publish-nuget-fixed@2.5.6
+      with:
+        PROJECT_FILE_PATH: spworlds.csproj
+        VERSION_STATIC: ${{ steps.vars.outputs.tags }}
+        TAG_COMMIT: true
+        TAG_FORMAT: "*"
+        NUGET_KEY: ${{secrets.NUGET_API_KEY}}
+        NUGET_SOURCE: https://api.nuget.org
+        INCLUDE_SYMBOLS: false
