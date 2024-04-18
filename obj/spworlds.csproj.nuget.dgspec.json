@@ -1,23 +1,23 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\losev\\OneDrive\\Рабочий стол\\spworlds\\spworlds-csharp-library\\spworlds.csproj": {}
+    "C:\\Users\\yawaflua\\Source\\Repos\\spworlds-csharp-library\\spworlds.csproj": {}
   },
   "projects": {
-    "C:\\Users\\losev\\OneDrive\\Рабочий стол\\spworlds\\spworlds-csharp-library\\spworlds.csproj": {
+    "C:\\Users\\yawaflua\\Source\\Repos\\spworlds-csharp-library\\spworlds.csproj": {
       "version": "1.0.5",
       "restore": {
-        "projectUniqueName": "C:\\Users\\losev\\OneDrive\\Рабочий стол\\spworlds\\spworlds-csharp-library\\spworlds.csproj",
+        "projectUniqueName": "C:\\Users\\yawaflua\\Source\\Repos\\spworlds-csharp-library\\spworlds.csproj",
         "projectName": "spworlds",
-        "projectPath": "C:\\Users\\losev\\OneDrive\\Рабочий стол\\spworlds\\spworlds-csharp-library\\spworlds.csproj",
-        "packagesPath": "C:\\Users\\losev\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\losev\\OneDrive\\Рабочий стол\\spworlds\\spworlds-csharp-library\\obj\\",
+        "projectPath": "C:\\Users\\yawaflua\\Source\\Repos\\spworlds-csharp-library\\spworlds.csproj",
+        "packagesPath": "C:\\Users\\yawaflua\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\yawaflua\\Source\\Repos\\spworlds-csharp-library\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "C:\\Users\\losev\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\yawaflua\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
@@ -38,11 +38,22 @@
           "warnAsError": [
             "NU1605"
           ]
+        },
+        "restoreAuditProperties": {
+          "enableAudit": "true",
+          "auditLevel": "low",
+          "auditMode": "direct"
         }
       },
       "frameworks": {
         "net6.0": {
           "targetAlias": "net6.0",
+          "dependencies": {
+            "Newtonsoft.Json": {
+              "target": "Package",
+              "version": "[13.0.3, )"
+            }
+          },
           "imports": [
             "net461",
             "net462",
@@ -59,7 +70,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.401\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.204\\RuntimeIdentifierGraph.json"
         }
       }
     }
